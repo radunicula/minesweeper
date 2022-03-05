@@ -1,8 +1,13 @@
 const table = document.getElementById("table");
+const game_over_div = document.getElementById("game_over");
+const game_over_header = document.createElement("h2");
+game_over_header.setAttribute("id", "game_over_header");
+game_over_div.appendChild(game_over_header);
 generateTable();
 
 function generateTable() {
     table.innerHTML = "";
+    game_over_header.innerText = "click on a cell";
     let cell, row;
     for (let i = 0; i < 10; i++) {
         row = table.insertRow(i);
@@ -34,7 +39,7 @@ function clickCell(cell) {
     const cellCol = cell.cellIndex;
     if (cell.getAttribute("is_mine") === "true") {
         uncoverMines();
-        alert("Game Over");
+        game_over_header.innerText = "Game Over! You Lost";
     } else {
         cell.className = "clicked";
         for (i = Math.max(cellRow - 1, 0); i <= Math.min(cellRow + 1, 9); i++) {
@@ -73,6 +78,6 @@ function isGameOver() {
                 return;
         }
     }
-    alert("You Win!");
+    game_over_header.innerText = "Congratulations! You Win";
     uncoverMines();
 }
